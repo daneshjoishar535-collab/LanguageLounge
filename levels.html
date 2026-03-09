@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>LanguageLounge Levels</title>
+<!-- Google Font -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+body{
+  font-family:'Poppins', sans-serif;
+  background:linear-gradient(135deg,#fff9e6,#fff3cc);
+  background-image:
+  radial-gradient(circle at 20% 20%, rgba(255,223,120,0.25) 60px, transparent 61px),
+  radial-gradient(circle at 80% 40%, rgba(255,223,120,0.2) 80px, transparent 81px),
+  radial-gradient(circle at 40% 80%, rgba(255,223,120,0.2) 70px, transparent 71px);
+  text-align:center;
+  margin:0;
+  padding-top:80px;
+}
+/* Navigation Menu */
+.menu{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:60px;
+  background:#111;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:40px;
+  z-index:1000;
+}
+.menu a{
+  color:white;
+  text-decoration:none;
+  font-size:16px;
+  font-weight:500;
+  transition:0.3s;
+}
+.menu a:hover{
+  color:#4CAF50;
+}
+/* HEADER BAR */
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 40px;
+}
+/* Add Friend Button */
+.add-friend{
+  background:#ffb74d;
+  color:white;
+  padding:8px 16px;
+  border-radius:8px;
+  font-size:14px;
+  font-weight:500;
+  cursor:pointer;
+  transition:0.3s;
+}
+.add-friend:hover{
+  background:#ffa726;
+  transform:scale(1.05);
+}
+h1{
+  margin-top:30px;
+  font-size:36px;
+  color:#1e446f;
+}
+h2{
+  margin-top:30px;
+  color:#333;
+  font-weight:500;
+}
+.container{
+  margin-top:40px;
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:25px;
+  padding:20px;
+}
+/* Base card */
+.card{
+  background:white;
+  padding:25px 20px;
+  border-radius:12px;
+  width:210px;
+  box-shadow:0 6px 15px rgba(0,0,0,0.08);
+  transition:all 0.3s ease;
+  cursor:pointer;
+}
+.card:hover{
+  transform:translateY(-8px) scale(1.04);
+  box-shadow:0 12px 25px rgba(0,0,0,0.15);
+}
+/* GROUP SESSION STYLE */
+.group{
+  background:#fff7e6;
+  border:1px solid #cddcff;
+}
+.group:hover{
+  background:#dce8ff;
+}
+.group .icon{
+  font-size:36px;
+  margin-bottom:12px;
+}
+.group .level{
+  color:#e65100;
+}
+/* PRIVATE SESSION STYLE */
+.private{
+  background:#fff7e6;
+  border:1px solid #ffe0b2;
+}
+.private:hover{
+  background:#fff1d6;
+}
+.private .icon{
+  font-size:34px;
+  margin-bottom:12px;
+}
+/* LEVEL */
+.level{
+  font-size:24px;
+  font-weight:600;
+}
+/* DESCRIPTION */
+.desc{
+  font-size:14px;
+  color:#666;
+  margin-top:6px;
+}
+/* PRICE */
+.price{
+  margin-top:12px;
+  font-weight:600;
+  font-size:16px;
+  color:#e65100;
+}
+/* Section spacing */
+.section-title{
+  margin-top:70px;
+}
+/* Links */
+a{
+  text-decoration:none;
+  color :#e65100;
+}
+/* Responsive */
+@media (max-width:600px){
+  .container{
+    gap:15px;
+  }
+  .card{
+    width:170px;
+    padding:20px 15px;
+  }
+}
+</style>
+</head>
+<body>
+<!-- Navigation Menu -->
+<div class="menu">
+<a href="levels.html">Home</a>
+<a href="booking.html">Book Table</a>
+<a href="friends.html">Friends</a>
+<a href="private.html">Private Sessions</a>
+</div>
+
+<div class="header">
+<h1>LanguageLounge</h1>
+<a href="friends.html">
+<div class="add-friend">
+<i class="fa-solid fa-user-plus"></i> Add Friends
+</div>
+</a>
+</div>
+
+<h2>Group Conversation Levels</h2>
+<div class="container">
+<a href="booking.html?level=A1">
+  <div class="card group">
+    <div class="icon"><i class="fa-solid fa-users"></i></div>
+    <div class="level">A1</div>
+    <div class="desc">Beginner Conversation Table</div>
+  </div>
+</a>
+<a href="booking.html?level=B1">
+  <div class="card group">
+    <div class="icon"><i class="fa-solid fa-comments"></i></div>
+    <div class="level">B1</div>
+    <div class="desc">Intermediate Conversation Table</div>
+  </div>
+</a>
+<a href="booking.html?level=C1">
+  <div class="card group">
+    <div class="icon"><i class="fa-solid fa-globe"></i></div>
+    <div class="level">C1</div>
+    <div class="desc">Advanced Conversation Table</div>
+  </div>
+</a>
+</div>
+
+<h2 class="section-title">Private 1-on-1 Sessions</h2>
+<div class="container">
+<a href="private.html?level=A1">
+  <div class="card private">
+    <div class="icon"><i class="fa-solid fa-seedling"></i></div>
+    <div class="level">A1</div>
+    <div class="desc">Private Beginner Session</div>
+    <div class="price">₹100</div>
+  </div>
+</a>
+<a href="private.html?level=A2">
+  <div class="card private">
+    <div class="icon"><i class="fa-solid fa-book"></i></div>
+    <div class="level">A2</div>
+    <div class="desc">Private Elementary Session</div>
+    <div class="price">₹200</div>
+  </div>
+</a>
+<a href="private.html?level=B1">
+  <div class="card private">
+    <div class="icon"><i class="fa-solid fa-comment-dots"></i></div>
+    <div class="level">B1</div>
+    <div class="desc">Private Intermediate Session</div>
+    <div class="price">₹300</div>
+  </div>
+</a>
+<a href="private.html?level=B2">
+  <div class="card private">
+    <div class="icon"><i class="fa-solid fa-headphones"></i></div>
+    <div class="level">B2</div>
+    <div class="desc">Private Upper Intermediate</div>
+    <div class="price">₹400</div>
+  </div>
+</a>
+<a href="private.html?level=C1">
+  <div class="card private">
+    <div class="icon"><i class="fa-solid fa-chalkboard-user"></i></div>
+    <div class="level">C1</div>
+    <div class="desc">Private Advanced Session</div>
+    <div class="price">₹500</div>
+  </div>
+</a>
+<a href="private.html?level=C2">
+  <div class="card private">
+    <div class="icon"><i class="fa-solid fa-medal"></i></div>
+    <div class="level">C2</div>
+    <div class="desc">Private Fluent Session</div>
+    <div class="price">₹600</div>
+  </div>
+</a>
+</div>
+</body>
+</html>

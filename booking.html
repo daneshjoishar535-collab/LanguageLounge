@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Language Tables - Levels</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:'Poppins', sans-serif;
+  background:#fff3e0;
+  padding:40px;
+  padding-top:90px;
+  text-align:center;
+}
+
+/* NAVIGATION MENU */
+
+.menu{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:60px;
+  background:#111;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:40px;
+  z-index:1000;
+}
+
+.menu a{
+  color:white;
+  text-decoration:none;
+  font-size:16px;
+  font-weight:500;
+  transition:0.3s;
+}
+
+.menu a:hover{
+  color:#ff9800;
+}
+
+/* BACK BUTTON */
+
+.back-btn{
+  position:fixed;
+  top:15px;
+  right:20px;
+  padding:10px 16px;
+  border:none;
+  background:white;
+  color:#333;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:500;
+  box-shadow:0 4px 10px rgba(0,0,0,0.2);
+}
+
+.back-btn:hover{
+  background:#f0f0f0;
+}
+
+/* TITLE */
+
+h1{
+  margin-bottom:5px;
+  font-weight:600;
+  color:#e65100;
+}
+
+.subtitle{
+  color:#8d6e63;
+  margin-bottom:25px;
+}
+
+/* SEARCH */
+
+.search{
+  margin-bottom:30px;
+}
+
+.search input{
+  padding:10px;
+  width:260px;
+  border:1px solid #ffcc80;
+  border-radius:8px;
+  outline:none;
+}
+
+/* TABLE GRID */
+
+.table-list{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:25px;
+  max-width:900px;
+  margin:auto;
+}
+
+/* TABLE CARD */
+
+.table-card{
+  background:white;
+  padding:25px;
+  border-radius:12px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.08);
+  border:1px solid #ffe0b2;
+  transition:0.3s;
+}
+
+.table-card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 8px 18px rgba(0,0,0,0.15);
+}
+
+.flag{
+  font-size:24px;
+  margin-bottom:5px;
+}
+
+.level{
+  font-size:13px;
+  background:#fff3e0;
+  display:inline-block;
+  padding:4px 8px;
+  border-radius:6px;
+  margin-bottom:6px;
+  color:#e65100;
+}
+
+.host{
+  font-size:14px;
+  color:#555;
+  margin-bottom:4px;
+}
+
+.rating{
+  font-size:13px;
+  color:#f39c12;
+  margin-bottom:6px;
+}
+
+.seats{
+  font-size:18px;
+  margin-top:6px;
+}
+
+/* BUTTON */
+
+.join-btn, .exit-btn{
+  margin-top:14px;
+  padding:10px 16px;
+  border:none;
+  background:#ff9800;
+  color:white;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:500;
+  transition:0.3s;
+}
+
+.join-btn:hover, .exit-btn:hover{
+  background:#f57c00;
+  transform:scale(1.05);
+}
+
+.join-btn:disabled{
+  background:#ccc;
+  cursor:not-allowed;
+}
+
+.exit-btn{
+  background:#ccc;
+}
+
+.exit-btn:hover{
+  background:#999;
+}
+
+.waiting-text{
+  margin-top:14px;
+  font-weight:500;
+  color:#555;
+}
+</style>
+</head>
+
+<body>
+
+<!-- BACK BUTTON -->
+
+<button class="back-btn" onclick="window.location.href='levels.html'">
+🏠 Back
+</button>
+
+<!-- NAVBAR -->
+
+<div class="menu">
+<a href="levels.html">Home</a>
+<a href="booking.html">Book Table</a>
+<a href="friends.html">Friends</a>
+</div>
+
+<!-- PAGE TITLE -->
+
+<h1>Available Language Tables</h1>
+<p class="subtitle">Marathi and Sanskrit are featured. Search for others.</p>
+
+<!-- SEARCH -->
+
+<div class="search">
+<input type="text" id="searchInput" placeholder="Search language...">
+</div>
+
+<!-- TABLE LIST -->
+
+<div class="table-list" id="tableList"></div>
+
+<script>
+
+/* TABLE DATA - only for levels.html */
+
+const tables = [
+  {topic:"Marathi Speaking",flag:"🇮🇳",level:"A1",host:"Anjali",rating:4.8,seats:0,featured:true,joined:false},
+  {topic:"Sanskrit Discussion",flag:"🕉️",level:"C1",host:"Rishi",rating:5.0,seats:0,featured:true,joined:false},
+  {topic:"English Conversation",flag:"🇬🇧",level:"B2",host:"James",rating:4.9,seats:0,featured:false,joined:false},
+  {topic:"Business Spanish",flag:"🇪🇸",level:"B1",host:"Maria",rating:4.9,seats:0,featured:false,joined:false},
+  {topic:"Casual French",flag:"🇫🇷",level:"A2",host:"Pierre",rating:4.7,seats:0,featured:false,joined:false},
+  {topic:"Travel Japanese",flag:"🇯🇵",level:"A1",host:"Yuki",rating:4.8,seats:0,featured:false,joined:false}
+];
+
+const tableList = document.getElementById("tableList");
+const searchInput = document.getElementById("searchInput");
+
+/* SEAT ICONS */
+
+function seatIcons(seats){
+  let icons="";
+  for(let i=0;i<4;i++){
+    icons += i < seats ? "🟢 " : "⚪ ";
+  }
+  return icons;
+}
+
+/* RENDER TABLES */
+
+function renderTables(){
+  tableList.innerHTML="";
+
+  const search = searchInput.value.toLowerCase();
+
+  tables
+  .filter(table => {
+    if(search===""){
+      return table.featured;
+    } else {
+      return table.topic.toLowerCase().includes(search);
+    }
+  })
+  .forEach(table => {
+    const card = document.createElement("div");
+    card.className="table-card";
+
+    // Show join button or waiting/exit
+    let actionHTML="";
+    if(table.joined){
+      actionHTML = `
+        <div class="waiting-text">⏳ Waiting for others to join...</div>
+        <button class="exit-btn">Exit Table</button>
+      `;
+    } else {
+      actionHTML = `<button class="join-btn" ${table.seats>=4?"disabled":""}>Join Table</button>`;
+    }
+
+    card.innerHTML = `
+      <div class="flag">${table.flag}</div>
+      <h3>${table.topic}</h3>
+      <div class="level">${table.level}</div>
+      <div class="host">👤 Host: ${table.host}</div>
+      <div class="rating">⭐ ${table.rating}</div>
+      <div class="seats">${seatIcons(table.seats)}</div>
+      ${actionHTML}
+    `;
+
+    // Add event listeners
+    const joinBtn = card.querySelector(".join-btn");
+    if(joinBtn){
+      joinBtn.addEventListener("click", ()=>{
+        if(table.seats<4){
+          table.seats++;
+          table.joined = true; // mark user joined
+          renderTables();
+        }
+      });
+    }
+
+    const exitBtn = card.querySelector(".exit-btn");
+    if(exitBtn){
+      exitBtn.addEventListener("click", ()=>{
+        if(table.seats>0){
+          table.seats--;
+        }
+        table.joined=false; // mark user left
+        renderTables();
+      });
+    }
+
+    tableList.appendChild(card);
+  });
+}
+
+searchInput.addEventListener("input", renderTables);
+
+renderTables();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Add Friends - LanguageLounge</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+/* Page */
+
+body{
+font-family:'Poppins', sans-serif;
+background:#f4f6f9;
+margin:0;
+padding:40px;
+text-align:center;
+padding-top:90px;
+}
+
+/* Navigation Menu */
+
+.menu{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:60px;
+background:#111;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:40px;
+z-index:1000;
+}
+
+.menu a{
+color:white;
+text-decoration:none;
+font-size:16px;
+font-weight:500;
+transition:0.3s;
+}
+
+.menu a:hover{
+color:#4CAF50;
+}
+
+/* Back Button Top Right */
+
+.back-btn{
+position:fixed;
+top:15px;
+right:20px;
+padding:10px 16px;
+border:none;
+background:white;
+color:#333;
+border-radius:8px;
+cursor:pointer;
+font-weight:500;
+box-shadow:0 4px 10px rgba(0,0,0,0.2);
+transition:0.3s;
+z-index:2000;
+}
+
+.back-btn:hover{
+background:#f0f0f0;
+transform:translateY(-2px);
+}
+
+/* Titles */
+
+h1{
+margin-bottom:10px;
+font-weight:600;
+}
+
+.subtitle{
+color:#666;
+margin-bottom:35px;
+}
+
+/* Container */
+
+.container{
+display:flex;
+justify-content:center;
+}
+
+/* Card */
+
+.card{
+background:white;
+padding:30px 25px;
+border-radius:12px;
+width:260px;
+color:#333;
+transition:0.3s;
+box-shadow:0 4px 10px rgba(0,0,0,0.08);
+cursor:pointer;
+}
+
+.card:hover{
+transform:translateY(-6px);
+box-shadow:0 10px 20px rgba(0,0,0,0.15);
+}
+
+/* Icon */
+
+.icon{
+display:flex;
+justify-content:center;
+align-items:center;
+margin-bottom:15px;
+}
+
+.icon i{
+font-size:40px;
+color:#ff9800;
+background:#fff3e0;
+padding:18px;
+border-radius:50%;
+transition:0.3s;
+}
+
+.card:hover .icon i{
+color:white;
+background:#ff9800;
+transform:scale(1.2);
+}
+
+/* Text */
+
+.level{
+font-size:22px;
+font-weight:600;
+margin-bottom:6px;
+}
+
+.desc{
+font-size:14px;
+color:#666;
+}
+
+.limit{
+margin-top:10px;
+font-weight:bold;
+font-size:15px;
+color:#e65100;
+}
+
+/* Invite section */
+
+.invite-section{
+margin-top:40px;
+}
+
+.invite-btn{
+background:#6c63ff;
+color:white;
+border:none;
+padding:10px 20px;
+border-radius:6px;
+cursor:pointer;
+}
+
+#inviteLink{
+width:300px;
+padding:8px;
+margin-top:10px;
+}
+
+.copy-btn{
+padding:8px 12px;
+margin-left:5px;
+cursor:pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- Back to Home Button -->
+<button class="back-btn" onclick="window.location.href='levels.html'">
+🏠 Back to Home
+</button>
+
+<!-- Navigation Menu -->
+
+<div class="menu">
+<a href="levels.html">Home</a>
+<a href="booking.html">Book Table</a>
+<a href="friends.html">Friends</a>
+<a href="private.html">Private Sessions</a>
+</div>
+
+<h1>Add Friends</h1>
+<p class="subtitle">Create a conversation room and invite friends</p>
+
+<!-- Conversation Table Card -->
+
+<div class="container">
+
+<div class="card" onclick="generateInviteLink()">
+
+<div class="icon">
+<i class="fa-solid fa-user-group"></i>
+</div>
+
+<div class="level">Conversation Table</div>
+
+<div class="desc">
+Create a private language conversation room
+</div>
+
+<div class="limit">
+Max 4 Participants
+</div>
+
+</div>
+
+</div>
+
+<!-- Invite Section -->
+
+<div class="invite-section">
+
+<button onclick="generateInviteLink()" class="invite-btn">
+<i class="fa-solid fa-user-plus"></i> Generate Invite Link
+</button>
+
+<br><br>
+
+<input type="text" id="inviteLink" placeholder="Invite link will appear here" readonly>
+
+<button onclick="copyInviteLink()" class="copy-btn">
+<i class="fa-solid fa-copy"></i>
+</button>
+
+</div>
+
+<script>
+
+/* Generate meeting link */
+
+function generateInviteLink(){
+
+const roomId = Math.floor(Math.random()*10000);
+
+const inviteLink = "meeting.html?room=" + roomId;
+
+document.getElementById("inviteLink").value = inviteLink;
+
+/* redirect to meeting page */
+
+window.location.href = inviteLink;
+
+}
+
+/* Copy Invite Link */
+
+function copyInviteLink(){
+
+const link = document.getElementById("inviteLink");
+
+if(link.value === ""){
+alert("Generate a link first!");
+return;
+}
+
+navigator.clipboard.writeText(link.value);
+
+alert("Invite link copied!");
+
+}
+
+</script>
+
+</body>
+</html>

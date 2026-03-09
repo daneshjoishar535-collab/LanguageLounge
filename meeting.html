@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>LanguageLounge Meeting Room</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+body{
+  font-family:'Poppins',sans-serif;
+  background:#1f1f2e;
+  margin:0;
+  color:white;
+  text-align:center;
+  padding-top:80px;
+}
+
+/* Header */
+.header{
+  background:#111;
+  padding:15px 30px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:fixed;
+  top:0;
+  width:100%;
+  box-sizing:border-box;
+}
+.room{
+  font-weight:500;
+  font-size:18px;
+}
+.leave{
+  background:#ff4d4d;
+  border:none;
+  padding:8px 14px;
+  border-radius:6px;
+  color:white;
+  cursor:pointer;
+}
+
+/* Invite Box */
+.invite-box{
+  margin-top:20px;
+}
+#inviteLink{
+  padding:8px;
+  width:280px;
+  border-radius:6px;
+  border:none;
+}
+
+/* Participants grid */
+.grid{
+  margin-top:40px;
+  display:grid;
+  grid-template-columns:repeat(2,250px);
+  gap:25px;
+  justify-content:center;
+}
+
+/* Participant card */
+.user{
+  background:#2e2e44;
+  border-radius:12px;
+  padding:20px;
+  height:150px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+}
+.avatar{
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  background:#6c63ff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  margin-bottom:10px;
+}
+.name{
+  font-size:16px;
+}
+.mic{
+  margin-top:8px;
+  font-size:13px;
+  color:#7cff7c;
+}
+
+/* Controls */
+.controls{
+  margin-top:40px;
+}
+button{
+  margin:10px;
+  padding:10px 16px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+}
+.copy{
+  background:#6c63ff;
+  color:white;
+}
+.mute{
+  background:#ff9800;
+  color:white;
+}
+
+/* Participant count at bottom-right */
+.participant-count{
+  position:fixed;
+  bottom:15px;
+  right:15px;
+  background:#111;
+  padding:8px 12px;
+  border-radius:8px;
+  font-weight:500;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <div class="room">
+    Room: <span id="roomID"></span>
+  </div>
+  <button class="leave" onclick="leaveRoom()">Leave</button>
+</div>
+
+<h2>LanguageLounge Conversation Table</h2>
+
+<div class="invite-box">
+  <input type="text" id="inviteLink" readonly>
+  <button class="copy" onclick="copyInvite()">Copy Invite</button>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<div class="controls">
+  <button class="mute" onclick="toggleMute()">Toggle Mic</button>
+</div>
+
+<div class="participant-count">
+  Participants: 4
+</div>
+
+<script>
+// Get room ID from URL
+const params = new URLSearchParams(window.location.search);
+const room = params.get("room") || "Not Specified";
+document.getElementById("roomID").innerText = room;
+
+// Invite link
+const inviteLink = window.location.href;
+document.getElementById("inviteLink").value = inviteLink;
+
+// Participants array (static)
+const participants = [
+  {name:"You", mic:true},
+  {name:"Friend 1", mic:false},
+  {name:"Friend 2", mic:false},
+  {name:"Friend 3", mic:false}
+];
+
+// Render participants
+function renderParticipants(){
+  const grid = document.getElementById("grid");
+  grid.innerHTML = "";
+  participants.forEach(p=>{
+    const div = document.createElement("div");
+    div.className = "user";
+    div.innerHTML = `
+      <div class="avatar">👤</div>
+      <div class="name">${p.name}</div>
+      <div class="mic">${p.mic ? "🎤 Speaking" : "Muted"}</div>
+    `;
+    grid.appendChild(div);
+  });
+}
+
+// Copy invite link
+function copyInvite(){
+  navigator.clipboard.writeText(inviteLink);
+  alert("Invite link copied!");
+}
+
+// Leave room
+function leaveRoom(){
+  alert("You left the room");
+  window.location.href = "friends.html";
+}
+
+// Toggle mic for current user
+let muted = false;
+function toggleMute(){
+  muted = !muted;
+  participants[0].mic = !muted; // first participant is "You"
+  renderParticipants();
+  alert(muted ? "Microphone Muted" : "Microphone Unmuted");
+}
+
+// Initial render
+renderParticipants();
+</script>
+
+</body>
+</html>
